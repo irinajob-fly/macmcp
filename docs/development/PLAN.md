@@ -79,7 +79,7 @@ Constraints that shape the plan:
 |---|---|---|
 | [ ] | Argument parsing, `--help`, `--version`, subcommands (`start`, `doctor`, `tools`, `config`) | unit tests + CLI smoke tests |
 | [ ] | ngrok tunnel manager: authtoken discovery, start/stop, status, error mapping | unit tests with a fake provider; real SDK failure path |
-| [ ] | Live ngrok tunnel reachable from the internet | **needs an ngrok authtoken** |
+| [x] | Live ngrok tunnel reachable from the internet | `doctor` round trip and an MCP client over the public URL (PROGRESS.md, 2026-11-15) |
 | [ ] | Wizard step 1: server + tunnel + connection instructions | PTY end-to-end test |
 | [ ] | Wizard step 2: directory selection (browser, manual path, validation) | unit tests + PTY end-to-end test |
 | [ ] | Wizard step 3: permission levels explained and selected, explicit confirmation for Full Access | unit tests + PTY end-to-end test |

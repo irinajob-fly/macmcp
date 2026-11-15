@@ -3,6 +3,16 @@
 One entry per milestone, newest first. Each entry lists what was verified and how; the
 checkboxes in [PLAN.md](PLAN.md) are only ticked on the basis of these entries.
 
+## M3 — Live ngrok check (2026-11-15)
+
+- With a real authtoken (Linux, Node 24): `mcpclaude doctor` round trip passed (488 ms).
+  `mcpclaude -d <dir> -m project -y` opened a public `ngrok-free.dev` URL; the official MCP
+  client connected through it, listed 33 tools and ran `run_command` in the project
+  directory; a wrong URL token got HTTP 401. The ngrok authtoken was not written to the
+  config file.
+- On a user's Mac, `doctor` reported `ERR_NGROK_334` (address held by another agent on the
+  account). `doctor` now reports that as a warning, since it proves the token and network work.
+
 ## M2 — Shell, processes, files, transfer, system tools (2026-11-14)
 
 - Implemented 33 tools on top of the M1 framework (35 with the two meta tools): `run_command`,
