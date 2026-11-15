@@ -76,7 +76,7 @@ export function classifyNgrokError(err: unknown): TunnelError {
       return new TunnelError(
         'endpoint_in_use',
         'That ngrok address is already online from another agent.',
-        `Another mcpclaude or ngrok process is using the same domain. Stop it (see ${NGROK_URLS.agents}) or use a different --ngrok-domain.`,
+        `Another agent on your ngrok account holds this address: a running mcpclaude, "ngrok http" in another terminal, the ngrok desktop app, or another computer using the same authtoken (free accounts have a single address). Stop it (see ${NGROK_URLS.agents}) or use a different --ngrok-domain.`,
         ngrokCode,
       );
     case 'ERR_NGROK_313':

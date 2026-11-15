@@ -74,6 +74,8 @@ async function checkTunnelRoundTrip(deps: DoctorDeps, authtoken: string, domain:
     return { name, status: 'fail', detail: `${tunnel.url}/health answered HTTP ${response.status}`, fix: 'Something between ngrok and this Mac altered the response; check proxies and security software.' };
   } catch (err) {
     const failure = classifyNgrokError(err);
+    // ngrok accepted the authtoken and the network works; only the address is taken, often by the user's own running mcpclaude.
+    if (failure.kind === 'endpoint_in_use') return { name, status: 'warn', detail: `${failure.message} The authtoken and network are fine.`, fix: failure.hint };
     return { name, status: 'fail', detail: failure.message, fix: failure.hint };
   } finally {
     await tunnel?.close().catch(() => undefined);

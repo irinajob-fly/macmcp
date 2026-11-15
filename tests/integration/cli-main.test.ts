@@ -222,6 +222,11 @@ describe('mcpclaude doctor', () => {
     const checks = await collectChecks(doctorDeps(rejected));
     expect(checks.find((c) => c.name === 'Tunnel round trip')).toEqual({ name: 'Tunnel round trip', status: 'fail', detail: 'ngrok rejected the authtoken.', fix: 'Copy the current token.' });
 
+    const taken = fakeTunnelProvider({ failures: [new TunnelError('endpoint_in_use', 'That ngrok address is already online from another agent.', 'Stop it.', 'ERR_NGROK_334')] });
+    const inUse = (await collectChecks(doctorDeps(taken))).find((c) => c.name === 'Tunnel round trip');
+    expect(inUse).toMatchObject({ status: 'warn', fix: 'Stop it.' });
+    expect(inUse?.detail).toContain('authtoken and network are fine');
+
     const elsewhere = fakeTunnelProvider({ url: 'http://127.0.0.1:9' });
     const unreachable = (await collectChecks(doctorDeps(elsewhere))).find((c) => c.name === 'Tunnel round trip');
     expect(unreachable?.status).toBe('fail');
